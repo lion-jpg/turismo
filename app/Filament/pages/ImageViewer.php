@@ -17,6 +17,7 @@ class ImageViewer extends Page
     public $data = [];
     
     public function mount()
+    
     {   
         try {
             $response = Http::withOptions([

@@ -210,7 +210,7 @@ public function update(Request $request, $id)
             return redirect()->back()->with('error', 'Error al actualizar los datos');
         }
 
-        return redirect('admin/guia')->with('success', 'Datos actualizados correctamente');
+        return redirect('admin/image-viewer')->with('success', 'Datos actualizados correctamente');
 
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Error: ' . $e->getMessage());

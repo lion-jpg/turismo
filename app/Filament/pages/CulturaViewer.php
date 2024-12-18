@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Http;
 
 class CulturaViewer extends Page
@@ -15,18 +16,22 @@ class CulturaViewer extends Page
 
     public function mount()
     {
-        $apiUrl = 'https://backend-culturas.elalto.gob.bo/api/culturas?populate=*';
-
         try {
             $response = Http::withOptions([
                 'verify' => false,
-            ])->get($apiUrl);
+            ])->get('https://backend-culturas.elalto.gob.bo/api/culturas?populate=*');
 
             if ($response->successful()) {
                 $this->data = $response->json();
             }
         } catch (\Exception $e) {
-            // Manejar el error si es necesario
+            $this->data = ['data' => []];
         }
+    }
+    protected function getViewData(): array
+    {
+        return [
+            'data' => $this->data,
+        ];
     }
 }

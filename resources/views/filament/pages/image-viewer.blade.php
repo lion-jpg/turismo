@@ -130,7 +130,7 @@
         <h1>Guias Registrados</h1>
         <button id="openModalBtn" class="btn-generate">Agregar Guia</button>
           <!-- Modal para el formulario-->
-    
+     
     <div id="formModal" class="modal">
         <div class="modal-content">
 

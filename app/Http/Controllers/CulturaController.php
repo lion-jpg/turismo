@@ -94,7 +94,8 @@ class CulturaController extends Controller
             return redirect()->back()->with('error', 'Error al enviar los datos a la API');
         }
 
-            return redirect()->back()->with('success', 'Datos enviados correctamente');
+            // return redirect()->back()->with('success', 'Datos enviados correctamente');
+            return redirect('admin/cultura-viewer')->with('success', 'Datos actualizados correctamente');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
         }
@@ -161,7 +162,8 @@ class CulturaController extends Controller
             return redirect()->back()->with('error', 'Error al actualizar los datos');
         }
 
-        return redirect('admin/culturas')->with('success', 'Datos actualizados correctamente');
+        // return redirect('admin/culturas')->with('success', 'Datos actualizados correctamente');
+        return redirect('admin/cultura-viewer')->with('success', 'Datos actualizados correctamente');
 
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
