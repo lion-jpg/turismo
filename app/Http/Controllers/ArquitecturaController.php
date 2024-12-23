@@ -175,7 +175,27 @@ class ArquitecturaController extends Controller
         }
     }
     
-    
+    public function delete($id)
+{
+    $client = new Client(['verify' => false]);
+
+    try {
+        $response = $client->delete("https://backend-culturas.elalto.gob.bo/api/arquitecturas/$id", [
+            'headers' => [
+                'Authorization' => 'Bearer ' . '7b648e5e4c3af96a7f47d7168fdf7d158981888cea87a30fe952ebee679f87abfec93aff1327e3950bc489fc853f09012c7627cdd46429947b42f43c47d9d26a7039a5ed028c3cb40ae088810b9f2ee321632d4c37c783daf3b2739881ebad6deeec567427b183b4c39661deca9c1f551e27b934ffc7bde71f67c36a269e536a',
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        if ($response->getStatusCode() == 204) {
+            return redirect('admin/arqui-viewer')->with('success', 'Contenido eliminado correctamente');
+        } else {
+            return redirect()->back()->with('error', 'Error al eliminar el contenido');
+        }
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
+    }
+}
 
      
    

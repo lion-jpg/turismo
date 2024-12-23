@@ -190,6 +190,7 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
+            
             <tbody>
                 @if(isset($data['data']) && is_array($data['data']))
                     @foreach ($data['data'] as $item)
@@ -208,6 +209,11 @@
                                         onclick="openEditModal({{ json_encode($item['attributes']) }}, {{ $item['id'] }})">
                                         Editar
                                     </button>
+                                    <form action="{{ url('admin/d_delete', $item['id']) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="button-azul" onclick="return confirm('¿Estás seguro de que deseas eliminar este contenido?');">Eliminar</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endif

@@ -279,7 +279,11 @@
                                 <td>
                                 <button class="button-azul"
                                     onclick="openEditModal({{ json_encode($item['attributes']) }}, {{ $item['id'] }})">Editar</button>
-
+                                    <form action="{{ url('admin/a_delete', $item['id']) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="button-azul" onclick="return confirm('¿Estás seguro de que deseas eliminar este contenido?');">Eliminar</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endif

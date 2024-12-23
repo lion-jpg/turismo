@@ -23,19 +23,22 @@ Route::middleware(['web'])->group(function () {
     Route::get('/generate-pdf/{userId}', [ApiController::class, 'generatePdf']);
     Route::put('/admin/editar/{id}', [ApiController::class, 'update']);
     Route::post('/admin/add-data', [ApiController::class, 'post']);
-
+    
     //************************************* */
     Route::get('admin/arqui',[ArquitecturaController::class, 'v_arqui']);
     Route::post('admin/a_post', [ArquitecturaController::class, 'post']);
     Route::put('admin/a_post/{id}', [ArquitecturaController::class, 'update']);
+    Route::delete('admin/a_delete/{id}', [ArquitecturaController::class, 'delete'])->name('arqui.delete');
     //************************************ */
     Route::get('admin/culturas',[CulturaController::class, 'v_cultura']);
     Route::post('admin/c_post', [CulturaController::class, 'post']);
     Route::put('admin/c_post/{id}', [CulturaController::class, 'update']);
+    Route::delete('admin/c_delete/{id}', [CulturaController::class, 'delete'])->name('cultura.delete');
     //************************************ */
     Route::get('admin/deportes',[DeporteController::class, 'v_deporte']);
     Route::post('admin/d_post', [DeporteController::class, 'post']);
     Route::put('admin/d_post/{id}', [DeporteController::class, 'update']);
+    Route::delete('admin/d_delete/{id}', [DeporteController::class, 'delete'])->name('deporte.delete');
     //************************************ */
     Route::get('admin/transportes',[TransporteController::class, 'v_transporte']);
     Route::post('admin/t_post', [TransporteController::class, 'post']);
