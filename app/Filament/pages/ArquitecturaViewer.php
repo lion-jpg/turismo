@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 class ArquitecturaViewer extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
-    protected static ?string $navigationLabel = 'Arquitectura';
+    protected static ?string $navigationLabel = 'Turismo Cultural';
     protected static string $view = 'filament.pages.arquitectura-viewer';
 
     public $data = [];

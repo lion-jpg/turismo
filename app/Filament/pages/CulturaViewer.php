@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 class CulturaViewer extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-globe-americas';
-    protected static ?string $navigationLabel = 'Culturas';
+    protected static ?string $navigationLabel = 'turismo Comunitario';
     protected static string $view = 'filament.pages.cultura-viewer';
 
     public $data = [];

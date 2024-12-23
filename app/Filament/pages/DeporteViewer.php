@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 class DeporteViewer extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-trophy';
-    protected static ?string $navigationLabel = 'Deportes';
+    protected static ?string $navigationLabel = 'Turismo Aventura';
     protected static string $view = 'filament.pages.deporte-viewer';
     
     public $data = [];

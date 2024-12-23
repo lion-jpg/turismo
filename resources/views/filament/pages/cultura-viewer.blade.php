@@ -206,7 +206,7 @@
     }
         </style>
     @endpush
-
+ 
     <h1>Turismo Cultural</h1>
     <button id="openModalBtn" class="btn-generate">Agregar Contenido</button>
 
@@ -219,16 +219,16 @@
             <form action="{{ url('admin/c_post') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <label for="titulo">Titulo:</label>
-                <input type="text" id="titulo" name="titulo">
+                <input type="text" id="titulo" name="titulo" required>
 
                 <label for="ubicacion">Ubicacion:</label>
-                <input type="text" id="ubicacion" name="ubicacion">
+                <input type="text" id="ubicacion" name="ubicacion" required>
 
                 <label for="descrip">Descripción:</label>
-                <input type="text" id="descrip" name="descrip"></input>
+                <input type="text" id="descrip" name="descrip" required></input>
 
                 <label for="foto_cult">Fotografia:</label>
-                <input type="file" id="foto_cult" name="foto_cult" accept="image/*">
+                <input type="file" id="foto_cult" name="foto_cult" accept="image/*" required>
 
                 <button type="submit" class="btn-generate">Agregar Contenido</button>
             </form>

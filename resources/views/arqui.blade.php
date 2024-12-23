@@ -1,18 +1,23 @@
-<x-filament-panels::page>
-    @push('styles')
-        <style>
-             body {
-        /* font-family: Arial, sans-serif; */
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitectura</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
         margin: 0;
         padding: 0 20px 0 20px;
         background-color: #f4f4f4;
     }
 
     h1 {
-                font-size: 2.5em; /* Aumentar el tamaño del encabezado */
-                text-align: center;
-                margin-bottom: 20px; /* Espacio debajo del encabezado */
-            }
+        font-size: 2.5em;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
     .container {
         margin-top: 20px;
@@ -43,25 +48,22 @@
         background-color: #f1f1f1;
     }
 
-    .button-azul, .btn-generate {
-                background-color: #007bff;
-                color: white;
-                border: none;
-                padding: 8px 12px;
-                font-size: 0.875rem;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-                display: inline-block;
-                max-width: 150px;
-                width: auto;
-                text-align: center;
-                margin: 8px 0;
-            }
+    .btn-generate {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 1em;
+        color: white;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
 
-            .button-azul:hover, .btn-generate:hover {
-                background-color: #0056b3;
-            }
+    .btn-generate:hover {
+        background-color: #0056b3;
+    }
 
     /* Estilo del Modal */
     .modal {
@@ -185,18 +187,81 @@
         cursor: pointer;
     }
 
+    /* Estilo de la barra de navegación */
+    nav {
+        background-color: #e2e2e2;
+        /* Fondo rojo */
+        padding: 10px 20px;
+        /* Espaciado interior */
+        display: flex;
+        /* Usamos flexbox para la disposición de los elementos */
+        justify-content: flex-end;
+        /* Alinea el contenido al final */
+        border-radius: 0 0 8px 8px;
+        /* Bordes redondeados en la parte inferior */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Sombra sutil */
+    }
 
+    nav a,
+    nav button {
+        color: white;
+        /* Texto blanco */
+        text-decoration: none;
+        /* Sin subrayado en el enlace */
+        padding: 10px 20px;
+        /* Espaciado interior */
+        border: none;
+        /* Sin borde en los botones */
+        border-radius: 5px;
+        /* Bordes redondeados */
+        font-size: 1em;
+        /* Tamaño de fuente */
+        cursor: pointer;
+        /* Cursor de mano */
+        margin-left: 10px;
+        /* Espacio entre los elementos */
+    }
+
+
+    nav a {
+        background-color: #6c757d;
+        /* Color de fondo para el enlace */
+        /* margin-right: 10px; Espacio entre el enlace y el botón */
+    }
+
+    nav button {
+        background-color: #6c757d;
+        /* Color de fondo para el botón */
+    }
+
+    nav a:hover,
+    nav button:hover {
+        opacity: 0.8;
+        /* Efecto de hover para ambos */
+    }
     .img{
         width: 100px; 
         height: 60px;
         border-radius: 10%;
     }
-        </style>
-    @endpush
+    </style>
+</head>
 
-    <h1>Turismo Arquitectónico</h1>
-    <button id="openModalBtn" class="btn-generate">Agregar Contenido</button>
+<body>
+    <nav>
+        <a href="{{ url('/admin') }}" class="btn-back">Regresar</a>
+        <!-- Botón para abrir el formulario en modal -->
+        <button id="openModalBtn" class="btn-ge">Agregar Arquitectura</button>
 
+    </nav>
+    <!-- @if (session('success'))
+    <p class="message success">{{ session('success') }}</p>
+    @endif
+
+    @if (session('error'))
+    <p class="message error">{{ session('error') }}</p>
+    @endif -->
     <!-- Modal para el formulario  -->
     <div id="formModal" class="modal">
         <div class="modal-content">
@@ -228,7 +293,7 @@
             <form id="editForm" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
- 
+
                 <label for="edit_titulo">Título:</label>
                 <input type="text" id="edit_titulo" name="titulo">
 
@@ -252,6 +317,9 @@
             </form>
         </div>
     </div>
+
+
+    <h1>Turismo Arquitectónico</h1>
     <div class="container">
         <table>
             <thead>
@@ -354,4 +422,7 @@
             closeEditModal();
         }}
     </script>
-</x-filament-panels::page>
+
+</body>
+
+</html>
