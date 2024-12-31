@@ -43,6 +43,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('admin/transportes',[TransporteController::class, 'v_transporte']);
     Route::post('admin/t_post', [TransporteController::class, 'post']);
     Route::put('admin/t_post/{id}', [TransporteController::class, 'update']);
+    Route::delete('admin/t_delete/{id}', [transporteController::class, 'delete'])->name('transporte.delete');
 });
 
 

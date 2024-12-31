@@ -1,24 +1,26 @@
 <x-filament-panels::page>
-    @push('styles')
+@push('styles')
         <style>
-           /* body {
-                margin: 0;
-                padding: 0 20px 0 20px;
-            } */
+           body {
+        /* font-family: Arial, sans-serif; */
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
 
-            h1 {
-                font-size: 2.5em;
+    h1 {
+                font-size: 2.5em; /* Aumentar el tamaño del encabezado */
                 text-align: center;
-                margin-bottom: 20px;
-                color: var(--text-color);
+                margin-bottom: 20px; /* Espacio debajo del encabezado */
             }
 
-            .container {
-                margin-top: 20px;
-                overflow-x: auto;
-            }
+    .container {
+        margin-top: 20px;
+        overflow-x: auto;
+        /* Permite el desplazamiento horizontal si la tabla es ancha */
+    }
 
-            table {
+    table {
                 width: 100%;
                 border-collapse: collapse;
                 background-color: var(--table-bg);
@@ -40,110 +42,101 @@
                 background-color: var(--hover-bg);
             }
 
-            .btn-generate {
-                display: inline-block;
-                margin-top: 10px;
-                padding: 10px 20px;
-                font-size: 1em;
-                color: white;
-                background-color: var(--primary-button);
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-                transition: background-color 0.3s;
-            }
+    .btn-generate {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 1em;
+        color: white;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
 
-            .btn-generate:hover {
-                background-color: var(--primary-button-hover);
-            }
+    .btn-generate:hover {
+        background-color: #0056b3;
+    }
 
-            .button-rojo {
-                background-color: var(--danger-button);
-                color: white;
-                border: none;
-                padding: 8px 12px;
-                font-size: 0.875rem;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-                display: inline-block;
-                max-width: 150px;
-                width: auto;
-                text-align: center;
-                margin: 8px 0;
-                transition: background-color 0.3s;
-            }
+    /* Estilo del Modal */
+    .modal {
+        display: none;
+        /* Oculta el modal por defecto */
+        position: fixed;
+        /* Fija el modal en la pantalla */
+        z-index: 1;
+        /* Asegura que el modal esté encima de otros elementos */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Ancho completo */
+        height: 100%;
+        /* Alto completo */
+        overflow: auto;
+        /* Permite el desplazamiento si es necesario */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Fondo semitransparente */
+    }
 
-            .button-rojo:hover {
-                background-color: var(--danger-button-hover);
-            }
+    .modal-content {
+        background-color: var(--modal-bg);
+        color: var(--text-color);
+        margin: 10% auto;
+        /* Centra el modal verticalmente */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 600px;
+        /* Ancho del modal */
+        max-width: 90%;
+        /* Máximo ancho del modal */
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-            /* Estilo del Modal */
-            .modal {
-                display: none;
-                position: fixed;
-                z-index: 1;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                overflow: auto;
-                background-color: var(--modal-overlay);
-            }
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-            .modal-content {
-                background-color: var(--modal-bg);
-                color: var(--text-color);
-                margin: 10% auto;
-                padding: 20px;
-                border: 1px solid var(--border-color);
-                width: 600px;
-                max-width: 90%;
-                border-radius: 8px;
-                box-shadow: var(--shadow);
-            }
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
-            .close-btn {
-                color: var(--text-color);
-                opacity: 0.7;
-                float: right;
-                font-size: 28px;
-                font-weight: bold;
-                transition: opacity 0.3s;
-            }
+    /* Estilo para el formulario en el modal */
+    form {
+        display: flex;
+        flex-direction: column;
+        /* Disposición en columna */
+        gap: 10px;
+        /* Espacio entre los campos */
+    }
 
-            .close-btn:hover {
-                opacity: 1;
-                text-decoration: none;
-                cursor: pointer;
-            }
+    label {
+        font-weight: bold;
+    }
 
-            form {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
+    input[type="text"],
+    input[type="int"],
+    textarea,
+    input[type="file"] {
+        width: 100%;
+        /* Ancho completo */
+        padding: 8px;
+        /* Espaciado interior */
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        background-color: var(--input-bg);
+        color: var(--text-color);
+    }
 
-            label {
-                font-weight: bold;
-                color: var(--text-color);
-            }
-
-            input[type="text"],
-            input[type="int"],
-            textarea,
-            input[type="file"] {
-                width: 100%;
-                padding: 8px;
-                border: 1px solid var(--border-color);
-                border-radius: 4px;
-                background-color: var(--input-bg);
-                color: var(--text-color);
-            }
-
-            .button-azul, .btn-generate {
-                background-color: var(--primary-button);
+    .button-azul, .btn-generate {
+                background-color: #007bff;
                 color: white;
                 border: none;
                 padding: 8px 12px;
@@ -156,28 +149,80 @@
                 width: auto;
                 text-align: center;
                 margin: 8px 0;
-                transition: background-color 0.3s;
             }
 
             .button-azul:hover, .btn-generate:hover {
-                background-color: var(--primary-button-hover);
+                background-color: #0056b3;
             }
-
-            .img {
-                width: 100px;
-                height: 60px;
-                border-radius: 10%;
-                border: 2px solid var(--border-color);
-            }
-
-            .image-preview {
-                text-align: center;
-                height: 60%;
+        /* Color de fondo al pasar el ratón */
+        .button-rojo {
+                background-color: #ed0505; /* Nuevo color de fondo (rojo claro) */
+                color: white;
+                border: none;
+                padding: 8px 12px;
+                font-size: 0.875rem;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;
+                display: inline-block;
+                max-width: 150px;
                 width: auto;
+                text-align: center;
+                margin: 8px 0;
+                transition: background-color 0.3s; /* Añadido efecto de transición */
             }
 
-            /* Variables CSS para temas claro/oscuro */
-            :root {
+            .button-rojo:hover {
+                background-color: #ad0303; /* Color más oscuro al pasar el ratón */
+            }
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+        /* Aumenta el desplazamiento y la opacidad de la sombra */
+    
+
+    button[type="submit"] {
+        background-color: #007bff;
+        /* Color de fondo del botón */
+        color: white;
+        /* Texto blanco */
+        border: none;
+        padding: 10px;
+        font-size: 1em;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+
+    /* Estilo del botón de cerrar */
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Estilo de la barra de navegación */
+    
+
+   
+    .img {
+        width: 100px;
+        height: 60px;
+        border-radius: 10%;
+    }
+    .image-preview{
+        text-align: center;
+        height: 60%;
+        width: auto;
+    }
+
+    :root {
                 --table-bg: #ffffff;
                 --border-color: #ddd;
                 --hover-bg: #f5f5f5;
@@ -210,29 +255,25 @@
             }
         </style>
     @endpush
+    <h1>Turismo Natural</h1>
 
-    <h1>Turismo Cultural</h1>
     <button id="openModalBtn" class="btn-generate">Agregar Contenido</button>
-
-    <!-- Modal para el formulario  -->
-    <div id="formModal" class="modal">
+     <!-- Modal para el formulario  -->
+     <div id="formModal" class="modal">
         <div class="modal-content">
             <!-- Mensajes de éxito y error -->
 
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <form action="{{ url('admin/c_post') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('admin/t_post') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <label for="titulo">Titulo:</label>
-                <input type="text" id="titulo" name="titulo" required>
-
-                <label for="ubicacion">Ubicacion:</label>
-                <input type="text" id="ubicacion" name="ubicacion" required>
+                <input type="text" id="titulo" name="titulo">
 
                 <label for="descrip">Descripción:</label>
-                <input type="text" id="descrip" name="descrip" required></input>
+                <input type="text" id="descrip" name="descrip"></input>
 
-                <label for="foto_cult">Fotografia:</label>
-                <input type="file" id="foto_cult" name="foto_cult" accept="image/*" required>
+                <label for="foto_tran">Fotografia:</label>
+                <input type="file" id="foto_tran" name="foto_tran" accept="image/*">
 
                 <button type="submit" class="btn-generate">Agregar Contenido</button>
             </form>
@@ -252,53 +293,50 @@
                 <label for="edit_descrip">Descripción:</label>
                 <input type="text" id="edit_descrip" name="descrip">
 
-                <label for="edit_ubicacion">Descripción:</label>
-                <input type="text" id="edit_ubicacion" name="ubicacion">
-
-                <label for="edit_foto_cult">Fotografía:</label>
-                <input type="file" id="edit_foto_cult" name="foto_cult" accept="image/*" onchange="previewImage(event)">
+                <label for="edit_foto_tran">Fotografía:</label>
+                <input type="file" id="edit_foto_tran" name="foto_tran" accept="image/*" onchange="previewImage(event)">
 
                 <div class="image-preview" id="imagePreview">
-                    @if (isset($data['attributes']['foto_cult']['data'][0]['attributes']['url']))
+                    @if (isset($data['attributes']['foto_tran']['data']['attributes']['url']))
 
-                    <img src="{{ 'https://backend-culturas.elalto.gob.bo'.$data['attributes']['foto_cult']['data'][0]['attributes']['url'] }}"
-                        alt="cultura">
+                    <img src="{{ 'https://backend-culturas.elalto.gob.bo'.$data['attributes']['foto_tran']['data']['attributes']['url'] }}"
+                        alt="transporte">
                     @endif
                 </div>
-                <button class="button-azul" type="submit">Actualizar Contenido</button>
+                <button  class="button-azul" type="submit">Actualizar Contenido</button>
             </form>
         </div>
     </div>
+
     <div class="container">
         <table>
             <thead>
                 <tr>
                     <th>Fotografía</th>
                     <th>Título</th>
-                    <th>Ubicación</th>
                     <th>Descripción</th>
-                    <th>Acción</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @if(isset($data['data']) && is_array($data['data']))
                 <!-- <pre>{{ print_r($data['data'], true) }}</pre> -->
                 @foreach ($data['data'] as $item)
-                @if (isset($item['attributes']['foto_cult']['data'][0]['attributes']['url']))
+                @if (isset($item['attributes']['foto_tran']['data']['attributes']['url']))
 
                 <tr>
                     <td>
                         <img class="img"
-                            src="{{ 'https://backend-culturas.elalto.gob.bo'.$item['attributes']['foto_cult']['data'][0]['attributes']['url'] }}"
+                            src="{{ 'https://backend-culturas.elalto.gob.bo'.$item['attributes']['foto_tran']['data']['attributes']['url'] }}"
                             alt="Image">
                     </td>
                     <td>{{ $item['attributes']['titulo'] }}</td>
                     <td>{{ $item['attributes']['descrip'] }}</td>
-                    <td>{{ $item['attributes']['ubicacion'] }}</td>
+
                     <td>
                         <button class="button-azul"
                             onclick="openEditModal({{ json_encode($item['attributes']) }}, {{ $item['id'] }})">Editar</button>
-                            <form action="{{ url('admin/c_delete', $item['id']) }}" method="POST" style="display:inline;">
+                            <form action="{{ url('admin/t_delete', $item['id']) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="button-rojo" onclick="return confirm('¿Estás seguro de que deseas eliminar este contenido?');">Eliminar</button>
@@ -316,7 +354,7 @@
         </table>
     </div>
     <script>
-    // Obtener el modal
+    // Obtener el modal de creacion
     var modal = document.getElementById("formModal");
 
     // Obtener el modal de edición
@@ -348,27 +386,20 @@
     function openEditModal(data, id) {
         document.getElementById("edit_titulo").value = data.titulo;
         document.getElementById("edit_descrip").value = data.descrip;
-        document.getElementById("edit_ubicacion").value = data.ubicacion;
         // Aquí puedes agregar lógica para cargar la imagen si es necesario
         const imagePreview = document.getElementById('imagePreview');
         imagePreview.innerHTML = ''; // Limpiar el contenedor de previsualización
 
-        if (data.foto_cult && data.foto_cult.data && data.foto_cult.data.length > 0) {
-            const imgData = data.foto_cult.data[0].attributes;
+        if (data.foto_tran && data.foto_tran.data && data.foto_tran.data.attributes.url) {
             const img = document.createElement('img');
-            img.src = 'https://backend-culturas.elalto.gob.bo' + imgData.url;
-            img.alt = "Cultura";
+            img.src = 'https://backend-culturas.elalto.gob.bo' + data.foto_tran.data.attributes.url;
+            img.alt = "Transporte";
             img.style.maxWidth = '50%'; // Asegúrate de que la imagen no exceda el contenedor
-            img.style.alin
             imagePreview.appendChild(img);
-        } else {
-            const message = document.createElement('p');
-            message.textContent = 'No hay imagen disponible.';
-            imagePreview.appendChild(message);
         }
         // Configurar la acción del formulario de edición
-        document.getElementById("editForm").action = "{{ url('admin/c_post') }}/" +
-            id; // Asegúrate de que el ID esté disponible
+        document.getElementById("editForm").action = "{{ url('admin/t_post') }}/" +
+        id; // Asegúrate de que el ID esté disponible
 
         editModal.style.display = "block";
     }
@@ -387,6 +418,7 @@
 
     // Detectar cambios en el modo oscuro
     if (window.matchMedia) {
+        // Comprobar si el modo oscuro está activo
         const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         
         const handleDarkModeChange = (e) => {
@@ -397,15 +429,11 @@
             }
         };
 
+        // Escuchar cambios en el modo oscuro
         darkModeMediaQuery.addListener(handleDarkModeChange);
+        
+        // Aplicar el modo inicial
         handleDarkModeChange(darkModeMediaQuery);
     }
-
-    // Sincronizar con el tema de Filament
-    document.addEventListener('DOMContentLoaded', function() {
-        if (document.documentElement.classList.contains('dark')) {
-            document.documentElement.classList.add('dark');
-        }
-    });
     </script>
 </x-filament-panels::page>

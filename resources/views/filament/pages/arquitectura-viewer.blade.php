@@ -1,50 +1,48 @@
 <x-filament-panels::page>
     @push('styles')
         <style>
-             body {
-        /* font-family: Arial, sans-serif; */
-        margin: 0;
-        padding: 0 20px 0 20px;
-        background-color: #f4f4f4;
-    }
+            /* body {
+                margin: 0;
+                padding: 0 20px 0 20px;
+            } */
 
-    h1 {
-                font-size: 2.5em; /* Aumentar el tamaño del encabezado */
+            .filament-main h1,
+            h1 {
+                font-size: 2.5em;
                 text-align: center;
-                margin-bottom: 20px; /* Espacio debajo del encabezado */
+                margin-bottom: 20px;
+                color: var(--text-color);
             }
 
-    .container {
-        margin-top: 20px;
-        overflow-x: auto;
-        /* Permite el desplazamiento horizontal si la tabla es ancha */
-    }
+            .container {
+                margin-top: 20px;
+                overflow-x: auto;
+            }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: white;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-    }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: var(--table-bg);
+                box-shadow: var(--shadow);
+                border-radius: 8px;
+            }
 
-    th,
-    td {
-        padding: 10px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
+            th, td {
+                padding: 10px;
+                text-align: left;
+                border-bottom: 1px solid var(--border-color);
+            }
 
-    th {
-        background-color: #f4f4f4;
-    }
+            th {
+                background-color: var(--header-bg);
+            }
 
-    tr:hover {
-        background-color: #f1f1f1;
-    }
+            tr:hover {
+                background-color: var(--hover-bg);
+            }
 
-    .button-azul, .btn-generate {
-                background-color: #007bff;
+            .button-azul, .btn-generate {
+                background-color: var(--primary-button);
                 color: white;
                 border: none;
                 padding: 8px 12px;
@@ -57,144 +55,139 @@
                 width: auto;
                 text-align: center;
                 margin: 8px 0;
+                transition: background-color 0.3s;
             }
 
             .button-azul:hover, .btn-generate:hover {
-                background-color: #0056b3;
+                background-color: var(--primary-button-hover);
             }
 
-    /* Estilo del Modal */
-    .modal {
-        display: none;
-        /* Oculta el modal por defecto */
-        position: fixed;
-        /* Fija el modal en la pantalla */
-        z-index: 1;
-        /* Asegura que el modal esté encima de otros elementos */
-        left: 0;
-        top: 0;
-        width: 100%;
-        /* Ancho completo */
-        height: 100%;
-        /* Alto completo */
-        overflow: auto;
-        /* Permite el desplazamiento si es necesario */
-        background-color: rgba(0, 0, 0, 0.4);
-        /* Fondo semitransparente */
-    }
+            .button-rojo {
+                background-color: var(--danger-button);
+                color: white;
+                border: none;
+                padding: 8px 12px;
+                font-size: 0.875rem;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;
+                display: inline-block;
+                max-width: 150px;
+                width: auto;
+                text-align: center;
+                margin: 8px 0;
+                transition: background-color 0.3s;
+            }
 
-    .modal-content {
-        background-color: #fefefe;
-        margin: 10% auto;
-        /* Centra el modal verticalmente */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 600px;
-        /* Ancho del modal */
-        max-width: 90%;
-        /* Máximo ancho del modal */
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+            .button-rojo:hover {
+                background-color: var(--danger-button-hover);
+            }
 
-    .close-btn {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
+            /* Estilo del Modal */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: var(--modal-overlay);
+            }
 
-    .close-btn:hover,
-    .close-btn:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
+            .modal-content {
+                background-color: var(--modal-bg);
+                color: var(--text-color);
+                margin: 10% auto;
+                padding: 20px;
+                border: 1px solid var(--border-color);
+                width: 600px;
+                max-width: 90%;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+            }
 
-    /* Estilo para el formulario en el modal */
-    form {
-        display: flex;
-        flex-direction: column;
-        /* Disposición en columna */
-        gap: 10px;
-        /* Espacio entre los campos */
-    }
+            .close-btn {
+                color: var(--text-color);
+                opacity: 0.7;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                transition: opacity 0.3s;
+            }
 
-    label {
-        font-weight: bold;
-    }
+            .close-btn:hover {
+                opacity: 1;
+                cursor: pointer;
+            }
 
-    input[type="text"],
-    input[type="int"],
-    textarea,
-    input[type="file"] {
-        width: 100%;
-        /* Ancho completo */
-        padding: 8px;
-        /* Espaciado interior */
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-    .button-azul{
-        background-color: #007bff;
-        /* Color de fondo del botón */
-        color: white;
-        /* Texto blanco */
-        border: none;
-        padding: 10px;
-        font-size: 1em;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
 
-    .button-azul:hover {
-        background-color: #0056b3;
-        /* Color de fondo al pasar el ratón */
-        
-        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); /* Aumenta el desplazamiento y la opacidad de la sombra */
-    }
-    button[type="submit"] {
-        background-color: #007bff;
-        /* Color de fondo del botón */
-        color: white;
-        /* Texto blanco */
-        border: none;
-        padding: 10px;
-        font-size: 1em;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+            label {
+                font-weight: bold;
+                color: var(--text-color);
+            }
 
-    button[type="submit"]:hover {
-        background-color: #0056b3;
-        /* Color de fondo al pasar el ratón */
-    }
+            input[type="text"],
+            input[type="int"],
+            textarea,
+            input[type="file"] {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+                background-color: var(--input-bg);
+                color: var(--text-color);
+            }
 
-    /* Estilo del botón de cerrar */
-    .close-btn {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
+            .img {
+                width: 100px;
+                height: 60px;
+                border-radius: 10%;
+                border: 2px solid var(--border-color);
+            }
 
-    .close-btn:hover,
-    .close-btn:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
+            /* Variables CSS para temas claro/oscuro */
+            :root {
+                --table-bg: #ffffff;
+                --border-color: #ddd;
+                --hover-bg: #f5f5f5;
+                --header-bg: #f4f4f4;
+                --primary-button: #007bff;
+                --primary-button-hover: #0056b3;
+                --danger-button: #ed0505;
+                --danger-button-hover: #ad0303;
+                --modal-overlay: rgba(0, 0, 0, 0.4);
+                --modal-bg: #ffffff;
+                --text-color: #000000;
+                --input-bg: #ffffff;
+                --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
 
-
-    .img{
-        width: 100px; 
-        height: 60px;
-        border-radius: 10%;
-    }
+            .dark {
+                --table-bg: #1f2937;
+                --border-color: #374151;
+                --hover-bg: #2d3748;
+                --header-bg: #111827;
+                --primary-button: #3b82f6;
+                --primary-button-hover: #2563eb;
+                --danger-button: #ef4444;
+                --danger-button-hover: #dc2626;
+                --modal-overlay: rgba(0, 0, 0, 0.6);
+                --modal-bg: #1f2937;
+                --text-color: #ffffff;
+                --input-bg: #374151;
+                --shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
         </style>
     @endpush
 
-    <h1>Turismo Arquitectónico</h1>
+    <h1 class="filament-header-heading">Turismo Cultural</h1>
     <button id="openModalBtn" class="btn-generate">Agregar Contenido</button>
 
     <!-- Modal para el formulario  -->
@@ -282,7 +275,7 @@
                                     <form action="{{ url('admin/a_delete', $item['id']) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="button-azul" onclick="return confirm('¿Estás seguro de que deseas eliminar este contenido?');">Eliminar</button>
+                                        <button type="submit" class="button-rojo" onclick="return confirm('¿Estás seguro de que deseas eliminar este contenido?');">Eliminar</button>
                                     </form>
                                 </td>
                             </tr>
@@ -357,5 +350,28 @@
         } else if (event.target == editModal) {
             closeEditModal();
         }}
+
+    // Detectar cambios en el modo oscuro
+    if (window.matchMedia) {
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        const handleDarkModeChange = (e) => {
+            if (e.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        };
+
+        darkModeMediaQuery.addListener(handleDarkModeChange);
+        handleDarkModeChange(darkModeMediaQuery);
+    }
+
+    // Sincronizar con el tema de Filament
+    document.addEventListener('DOMContentLoaded', function() {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.add('dark');
+        }
+    });
     </script>
 </x-filament-panels::page>

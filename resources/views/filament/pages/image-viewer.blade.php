@@ -1,18 +1,15 @@
 <x-filament::page>
     @push('styles')
         <style>
-            /* Estilos básicos */
             body {
-                /* font-family: Arial, sans-serif; */
                 margin: 0;
-                padding: 0 20px;
-                background-color: #f4f4f4;
+                padding: 0;
             }
 
             h1 {
-                font-size: 2.5em; /* Aumentar el tamaño del encabezado */
+                font-size: 2.5em;
                 text-align: center;
-                margin-bottom: 20px; /* Espacio debajo del encabezado */
+                margin-bottom: 20px;
             }
 
             /* Estilos de tabla */
@@ -20,24 +17,29 @@
                 width: 100%;
                 border-collapse: collapse;
                 margin-top: 20px;
+                background-color: var(--table-bg);
+                border-radius: 8px;
+                box-shadow: var(--shadow);
             }
 
             table, th, td {
-                border: 1px solid #ddd;
+                border: 1px solid var(--border-color);
             }
-
+            th {
+                background-color: var(--header-bg);
+            }
             th, td {
                 padding: 12px;
                 text-align: left;
             }
 
             tr:hover {
-                background-color: #e6e6e6;
+                background-color: var(--hover-bg);
             }
 
             /* Estilos de botones */
             .button-azul, .btn-generate {
-                background-color: #007bff;
+                background-color: var(--primary-button);
                 color: white;
                 border: none;
                 padding: 10px 20px;
@@ -46,10 +48,11 @@
                 cursor: pointer;
                 text-decoration: none;
                 display: inline-block;
+                transition: background-color 0.3s;
             }
 
             .button-azul:hover, .btn-generate:hover {
-                background-color: #0056b3;
+                background-color: var(--primary-button-hover);
             }
 
             /* Estilos del modal */
@@ -62,18 +65,19 @@
                 width: 100%;
                 height: 100%;
                 overflow: auto;
-                background-color: rgba(0, 0, 0, 0.4);
+                background-color: var(--modal-overlay);
             }
 
             .modal-content {
-                background-color: #fefefe;
+                background-color: var(--modal-bg);
+                color: var(--text-color);
                 margin: 10% auto;
                 padding: 20px;
-                border: 1px solid #888;
+                border: 1px solid var(--border-color);
                 width: 600px;
                 max-width: 90%;
                 border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                box-shadow: var(--shadow);
             }
 
             /* Estilos del formulario */
@@ -85,6 +89,7 @@
 
             label {
                 font-weight: bold;
+                color: var(--text-color);
             }
 
             input[type="text"],
@@ -93,28 +98,59 @@
             input[type="file"] {
                 width: 100%;
                 padding: 8px;
-                border: 1px solid #ddd;
+                border: 1px solid var(--border-color);
                 border-radius: 4px;
+                background-color: var(--input-bg);
+                color: var(--text-color);
             }
 
-            /* Botón cerrar modal */
+            /* Variables CSS para temas claro/oscuro */
+            :root {
+                --table-bg: #ffffff;
+                --border-color: #ddd;
+                --hover-bg: #f5f5f5;
+                --primary-button: #007bff;
+                --primary-button-hover: #0056b3;
+                --modal-overlay: rgba(0, 0, 0, 0.4);
+                --modal-bg: #ffffff;
+                --text-color: #000000;
+                --input-bg: #ffffff;
+                --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .dark {
+                --table-bg: #1f2937;
+                --border-color: #374151;
+                --hover-bg: #2d3748;
+                --header-bg: #111827;
+                --primary-button: #3b82f6;
+                --primary-button-hover: #2563eb;
+                --modal-overlay: rgba(0, 0, 0, 0.6);
+                --modal-bg: #1f2937;
+                --text-color: #ffffff;
+                --input-bg: #374151;
+                --shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
             .close-btn {
-                color: #aaa;
+                color: var(--text-color);
+                opacity: 0.7;
                 float: right;
                 font-size: 28px;
                 font-weight: bold;
                 cursor: pointer;
+                transition: opacity 0.3s;
             }
 
             .close-btn:hover {
-                color: black;
+                opacity: 1;
             }
 
-            /* Estilos de imagen */
             .img {
                 width: 60px;
                 height: 60px;
                 border-radius: 50%;
+                border: 2px solid var(--border-color);
             }
 
             .image-preview {
@@ -308,7 +344,7 @@
 
         editModal.style.display = "block";
     }
-    // Función para cerrar el modal de edici��n
+    // Función para cerrar el modal de edición
     function closeEditModal() {
         editModal.style.display = "none";
     }
@@ -320,6 +356,29 @@
             closeEditModal();
         }
     }
+
+    // Detectar cambios en el modo oscuro
+    if (window.matchMedia) {
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        const handleDarkModeChange = (e) => {
+            if (e.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        };
+
+        darkModeMediaQuery.addListener(handleDarkModeChange);
+        handleDarkModeChange(darkModeMediaQuery);
+    }
+
+    // Sincronizar con el tema de Filament
+    document.addEventListener('DOMContentLoaded', function() {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.add('dark');
+        }
+    });
     </script>
     {{-- Mantén el resto del código (modales, scripts, etc.) --}}
 </x-filament::page> 

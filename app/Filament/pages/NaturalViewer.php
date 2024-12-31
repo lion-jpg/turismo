@@ -6,11 +6,11 @@ use Filament\Pages\Page;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Http;
 
-class CulturaViewer extends Page
+class NaturalViewer extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-globe-americas';
-    protected static ?string $navigationLabel = 'Turismo Comunitario';
-    protected static string $view = 'filament.pages.cultura-viewer';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationLabel = 'Turismo Natural';
+    protected static string $view = 'filament.pages.natural-viewer';
 
     public $data = [];
 
@@ -19,7 +19,7 @@ class CulturaViewer extends Page
         try {
             $response = Http::withOptions([
                 'verify' => false,
-            ])->get('https://backend-culturas.elalto.gob.bo/api/culturas?populate=*');
+            ])->get('https://backend-culturas.elalto.gob.bo/api/transportes?populate=*');
 
             if ($response->successful()) {
                 $this->data = $response->json();

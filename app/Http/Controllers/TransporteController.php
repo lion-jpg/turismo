@@ -27,7 +27,7 @@ class TransporteController extends Controller
 
             $data = $response->json();
             
-            return view('trasporte', ['data' => $data]);
+            return view('admin/natural-viewer', ['data' => $data]);
 
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -59,7 +59,7 @@ class TransporteController extends Controller
                     ],
                 ],
                 'headers' => [
-                    'Authorization' => 'Bearer ' . 'YOUR_TOKEN_HERE',
+                    'Authorization' => 'Bearer ' . '7b648e5e4c3af96a7f47d7168fdf7d158981888cea87a30fe952ebee679f87abfec93aff1327e3950bc489fc853f09012c7627cdd46429947b42f43c47d9d26a7039a5ed028c3cb40ae088810b9f2ee321632d4c37c783daf3b2739881ebad6deeec567427b183b4c39661deca9c1f551e27b934ffc7bde71f67c36a269e536a',
                     'Accept'        => 'application/json',
                 ],
             ]);
@@ -83,7 +83,7 @@ class TransporteController extends Controller
                     ]
                 ],
                 'headers' => [
-                    'Authorization' => 'Bearer ' . 'YOUR_TOKEN_HERE',
+                    'Authorization' => 'Bearer ' . '7b648e5e4c3af96a7f47d7168fdf7d158981888cea87a30fe952ebee679f87abfec93aff1327e3950bc489fc853f09012c7627cdd46429947b42f43c47d9d26a7039a5ed028c3cb40ae088810b9f2ee321632d4c37c783daf3b2739881ebad6deeec567427b183b4c39661deca9c1f551e27b934ffc7bde71f67c36a269e536a',
                     'Accept'        => 'application/json',
                 ],
             ]);
@@ -162,8 +162,30 @@ public function update(Request $request, $id)
             return redirect()->back()->with('error', 'Error al actualizar los datos');
         }
 
-        return redirect('admin/transportes')->with('success', 'Datos actualizados correctamente');
+        return redirect('admin/natural-viewer')->with('success', 'Datos actualizados correctamente');
 
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
+    }
+}
+
+public function delete($id)
+{
+    $client = new Client(['verify' => false]);
+
+    try {
+        $response = $client->delete("https://backend-culturas.elalto.gob.bo/api/transportes/$id", [
+            'headers' => [
+                'Authorization' => 'Bearer ' . '7b648e5e4c3af96a7f47d7168fdf7d158981888cea87a30fe952ebee679f87abfec93aff1327e3950bc489fc853f09012c7627cdd46429947b42f43c47d9d26a7039a5ed028c3cb40ae088810b9f2ee321632d4c37c783daf3b2739881ebad6deeec567427b183b4c39661deca9c1f551e27b934ffc7bde71f67c36a269e536a',
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        if ($response->getStatusCode() == 204) {
+            return redirect('admin/natural-viewer')->with('success', 'Contenido eliminado correctamente');
+        } else {
+            return redirect()->back()->with('error', 'Error al eliminar el contenido');
+        }
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
     }
