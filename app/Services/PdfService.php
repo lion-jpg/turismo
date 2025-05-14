@@ -40,10 +40,9 @@ class PdfService
         $pdf->SetXY(57, 90); // Nueva posición para el siguiente elemento
         $pdf->Cell(0, 10, 'Género: ' . htmlspecialchars($userData['genero']));
         
-
-         // Add the user's image to PDF
-         if (isset($userData['foto_guia']['data'][0]['attributes']['url'])) {
-            $imageUrl = 'https://backend-culturas.elalto.gob.bo' . $userData['foto_guia']['data'][0]['attributes']['url'];
+        // Add the user's image to PDF
+        if (isset($userData['foto_guia']['data']['attributes']['url'])) {
+            $imageUrl = 'https://backend-culturas.elalto.gob.bo' . $userData['foto_guia']['data']['attributes']['url'];
 
             // Download the image using cURL
             $ch = curl_init();
@@ -55,12 +54,11 @@ class PdfService
             curl_close($ch);
 
             if ($imageData) {
-                $pdf->Image('@' . $imageData, '34', '77',22, 27, 'JPG', '', 'T', true, 300, '', false, false, 0, false, false, false);
+                $pdf->Image('@' . $imageData, '34', '77', 22, 27, 'JPG', '', 'T', true, 300, '', false, false, 0, false, false, false);
             }
         }
 
         // Add QR code with user ID
-        // $userId = htmlspecialchars($id['id']?? 'ID no disponible');
         $url = 'http://localhost:8080/guia2/'. $userId;
         $pdf->write2DBarcode($url, 'QRCODE,H', 90, 70, 15, 15, array(), 'N');
 

@@ -1,0 +1,65 @@
+{
+    "name": "bezhansalleh/filament-language-switch",
+    "description": "Zero config Language Switch(Changer/Localizer) plugin for filamentphp admin",
+    "keywords": [
+        "bezhanSalleh",
+        "laravel",
+        "filament-language-switch",
+        "filament-language-changer",
+        "filament-locale-changer",
+        "filament-localizer",
+        "filament-plugin",
+        "filamentphp"
+    ],
+    "homepage": "https://github.com/bezhansalleh/filament-language-switch",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bezhan Salleh",
+            "email": "bezhan_salleh@yahoo.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1|^8.2|^8.3",
+        "filament/filament": "^3.0",
+        "spatie/laravel-package-tools": "^1.9"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.0",
+        "nunomaduro/collision": "^6.0|^7.0|8.0",
+        "orchestra/testbench": "^7.0|^8.0|^9.0",
+        "pestphp/pest": "^2.34",
+        "pestphp/pest-plugin-laravel": "^2.3",
+        "spatie/laravel-ray": "^1.26"
+    },
+    "autoload": {
+        "psr-4": {
+            "BezhanSalleh\\FilamentLanguageSwitch\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BezhanSalleh\\FilamentLanguageSwitch\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BezhanSalleh\\FilamentLanguageSwitch\\FilamentLanguageSwitchServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

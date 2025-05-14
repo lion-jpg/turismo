@@ -256,7 +256,7 @@
         </style>
     @endpush
     <h1>Turismo Natural</h1>
-
+ 
     <button id="openModalBtn" class="btn-generate">Agregar Contenido</button>
      <!-- Modal para el formulario  -->
      <div id="formModal" class="modal">

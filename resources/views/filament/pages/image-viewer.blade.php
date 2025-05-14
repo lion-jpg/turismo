@@ -215,36 +215,36 @@
                 @method('PUT')
 
                 <label for="edit_nombre">Nombre:</label>
-                <input type="text" id="edit_nombre" name="nombre" value="nombre">
+                <input type="text" id="edit_nombre" name="nombre">
 
                 <label for="edit_apellidos">Apellidos:</label>
-                <input type="text" id="edit_apellidos" name="apellidos" value="apellidos">
+                <input type="text" id="edit_apellidos" name="apellidos">
 
                 <label for="edit_telefono">Teléfono:</label>
-                <input type="number" id="edit_telefono" name="telefono" value="telefono">
+                <input type="number" id="edit_telefono" name="telefono">
 
                 <label for="edit_descripcion">Descripción:</label>
-                <input type="text" id="edit_descripcion" name="descripcion" value="descripcion">
+                <input type="text" id="edit_descripcion" name="descripcion">
 
-                <label for="edit_genero">Genero:</label>
-                <input type="text" id="edit_genero" name="genero" value="genero">
+                <label for="edit_genero">Género:</label>
+                <input type="text" id="edit_genero" name="genero">
 
                 <label for="edit_foto_guia">Foto Guía:</label>
                 <input type="file" id="edit_foto_guia" name="foto_guia" accept="image/*" onchange="previewImage(event)">
 
                 <div class="image-preview" id="imagePreview">
-                    @if (isset($user['attributes']['foto_guia']['data'][0]['attributes']['url']))
-                    <img src="{{ 'https://backend-culturas.elalto.gob.bo' . $user['attributes']['foto_guia']['data'][0]['attributes']['url'] }}"
-                        alt="Imagen de la guía">
+                    @if (isset($data['attributes']['foto_guia']['data']['attributes']['url']))
+                        <img src="{{ 'https://backend-culturas.elalto.gob.bo'.$data['attributes']['foto_guia']['data']['attributes']['url'] }}"
+                            alt="Imagen de la guía">
                     @endif
                 </div>
 
-                <button type="submit">Actualizar Datos</button>
+                <button type="submit" class="button-azul">Actualizar Datos</button>
             </form>
         </div>
     </div>
     
-    <div class="conT">
+    <div class="container">
         <table>
             <thead>
                 <tr>
@@ -259,18 +259,23 @@
             <tbody>
                 @if (isset($data['data']) && is_array($data['data']))
                     @foreach ($data['data'] as $item)
-                        @if (isset($item['attributes']['foto_guia']['data'][0]['attributes']['url']))
+                        @if (isset($item['attributes']['foto_guia']['data']['attributes']['url']))
                             <tr>
-                                <td><img class="img"
-                                        src="{{ 'https://backend-culturas.elalto.gob.bo'.$item['attributes']['foto_guia']['data'][0]['attributes']['url'] }}"
-                                        alt="Image"></td>
+                                <td>
+                                    <img class="img"
+                                        src="{{ 'https://backend-culturas.elalto.gob.bo'.$item['attributes']['foto_guia']['data']['attributes']['url'] }}"
+                                        alt="Image">
+                                </td>
                                 <td>{{ $item['attributes']['nombre'] }} {{ $item['attributes']['apellidos'] }}</td>
                                 <td>{{ $item['attributes']['telefono'] }}</td>
                                 <td>{{ $item['attributes']['descripcion'] }}</td>
                                 <td>{{ $item['attributes']['genero'] }}</td>
-                                <td><a href="{{ url('/generate-pdf/' . $item['id']) }}" class="btn-generate">Generate PDF</a>
+                                <td>
+                                    <a href="{{ url('/generate-pdf/' . $item['id']) }}" class="btn-generate">Generate PDF</a>
                                     <button class="button-azul"
-                                        onclick="openEditModal({{ json_encode($item['attributes']) }}, {{ $item['id'] }})">Editar</button>
+                                        onclick="openEditModal({{ json_encode($item['attributes']) }}, {{ $item['id'] }})">
+                                        Editar
+                                    </button>
                                 </td>
                             </tr>
                         @endif
@@ -321,27 +326,24 @@
         document.getElementById("edit_descripcion").value = data.descripcion;
         document.getElementById("edit_telefono").value = data.telefono;
         document.getElementById("edit_genero").value = data.genero;
-        // Aquí puedes agregar lógica para cargar la imagen si es necesario
+        
         const imagePreview = document.getElementById('imagePreview');
-        imagePreview.innerHTML = ''; // Limpiar el contenedor de previsualización
+        imagePreview.innerHTML = '';
 
-        if (data.foto_guia && data.foto_guia.data && data.foto_guia.data.length > 0) {
-            const imgData = data.foto_guia.data[0].attributes;
+        if (data.foto_guia && data.foto_guia.data && data.foto_guia.data.attributes) {
+            const imgData = data.foto_guia.data.attributes;
             const img = document.createElement('img');
             img.src = 'https://backend-culturas.elalto.gob.bo' + imgData.url;
             img.alt = "Guia";
-            img.style.maxWidth = '50%'; // Asegúrate de que la imagen no exceda el contenedor
-            img.style.alin
+            img.style.maxWidth = '50%';
             imagePreview.appendChild(img);
         } else {
             const message = document.createElement('p');
             message.textContent = 'No hay imagen disponible.';
             imagePreview.appendChild(message);
         }
-        // Configurar la acción del formulario de edición
-        document.getElementById("editForm").action = "{{ url('admin/editar') }}/" +
-            id; // Asegúrate de que el ID esté disponible
 
+        document.getElementById("editForm").action = "{{ url('admin/editar') }}/" + id;
         editModal.style.display = "block";
     }
     // Función para cerrar el modal de edición

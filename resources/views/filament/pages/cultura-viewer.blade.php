@@ -211,7 +211,7 @@
         </style>
     @endpush
 
-    <h1>Turismo Cultural</h1>
+    <h1>Turismo Comunitario</h1>
     <button id="openModalBtn" class="btn-generate">Agregar Contenido</button>
 
     <!-- Modal para el formulario  -->
@@ -252,17 +252,16 @@
                 <label for="edit_descrip">Descripción:</label>
                 <input type="text" id="edit_descrip" name="descrip">
 
-                <label for="edit_ubicacion">Descripción:</label>
+                <label for="edit_ubicacion">Ubicación:</label>
                 <input type="text" id="edit_ubicacion" name="ubicacion">
 
                 <label for="edit_foto_cult">Fotografía:</label>
                 <input type="file" id="edit_foto_cult" name="foto_cult" accept="image/*" onchange="previewImage(event)">
 
                 <div class="image-preview" id="imagePreview">
-                    @if (isset($data['attributes']['foto_cult']['data'][0]['attributes']['url']))
-
-                    <img src="{{ 'https://backend-culturas.elalto.gob.bo'.$data['attributes']['foto_cult']['data'][0]['attributes']['url'] }}"
-                        alt="cultura">
+                    @if (isset($data['attributes']['foto_cult']['data']['attributes']['url']))
+                        <img src="{{ 'https://backend-culturas.elalto.gob.bo'.$data['attributes']['foto_cult']['data']['attributes']['url'] }}"
+                            alt="cultura">
                     @endif
                 </div>
                 <button class="button-azul" type="submit">Actualizar Contenido</button>
@@ -282,35 +281,37 @@
             </thead>
             <tbody>
                 @if(isset($data['data']) && is_array($data['data']))
-                <!-- <pre>{{ print_r($data['data'], true) }}</pre> -->
-                @foreach ($data['data'] as $item)
-                @if (isset($item['attributes']['foto_cult']['data'][0]['attributes']['url']))
-
-                <tr>
-                    <td>
-                        <img class="img"
-                            src="{{ 'https://backend-culturas.elalto.gob.bo'.$item['attributes']['foto_cult']['data'][0]['attributes']['url'] }}"
-                            alt="Image">
-                    </td>
-                    <td>{{ $item['attributes']['titulo'] }}</td>
-                    <td>{{ $item['attributes']['descrip'] }}</td>
-                    <td>{{ $item['attributes']['ubicacion'] }}</td>
-                    <td>
-                        <button class="button-azul"
-                            onclick="openEditModal({{ json_encode($item['attributes']) }}, {{ $item['id'] }})">Editar</button>
-                            <form action="{{ url('admin/c_delete', $item['id']) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="button-rojo" onclick="return confirm('¿Estás seguro de que deseas eliminar este contenido?');">Eliminar</button>
-                            </form>
-                    </td>
-                </tr>
-                @endif
-                @endforeach
+                    @foreach ($data['data'] as $item)
+                        @if (isset($item['attributes']['foto_cult']['data']['attributes']['url']))
+                            <tr>
+                                <td>
+                                    <img class="img"
+                                        src="{{ 'https://backend-culturas.elalto.gob.bo'.$item['attributes']['foto_cult']['data']['attributes']['url'] }}"
+                                        alt="Image">
+                                </td>
+                                <td>{{ $item['attributes']['titulo'] }}</td>
+                                <td>{{ $item['attributes']['ubicacion'] }}</td>
+                                <td>{{ $item['attributes']['descrip'] }}</td>
+                                <td>
+                                    <button class="button-azul"
+                                        onclick="openEditModal({{ json_encode($item['attributes']) }}, {{ $item['id'] }})">
+                                        Editar
+                                    </button>
+                                    <form action="{{ url('admin/c_delete', $item['id']) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="button-rojo" onclick="return confirm('¿Estás seguro de que deseas eliminar este contenido?');">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
                 @else
-                <tr>
-                    <td colspan="4">No data found.</td>
-                </tr>
+                    <tr>
+                        <td colspan="5">No hay datos disponibles.</td>
+                    </tr>
                 @endif
             </tbody>
         </table>
@@ -353,13 +354,12 @@
         const imagePreview = document.getElementById('imagePreview');
         imagePreview.innerHTML = ''; // Limpiar el contenedor de previsualización
 
-        if (data.foto_cult && data.foto_cult.data && data.foto_cult.data.length > 0) {
-            const imgData = data.foto_cult.data[0].attributes;
+        if (data.foto_cult && data.foto_cult.data && data.foto_cult.data.attributes) {
+            const imgData = data.foto_cult.data.attributes;
             const img = document.createElement('img');
             img.src = 'https://backend-culturas.elalto.gob.bo' + imgData.url;
             img.alt = "Cultura";
-            img.style.maxWidth = '50%'; // Asegúrate de que la imagen no exceda el contenedor
-            img.style.alin
+            img.style.maxWidth = '50%';
             imagePreview.appendChild(img);
         } else {
             const message = document.createElement('p');
