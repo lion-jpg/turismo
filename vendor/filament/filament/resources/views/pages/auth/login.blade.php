@@ -78,7 +78,7 @@
 }
 
 .dark {
-    --border-color: rgba(255, 255, 255, 0.2);
+    --border-color: rgba(8, 8, 8, 0.2);
     --glow-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
     --overlay-color: rgba(0, 0, 0, 0.6);
     --form-bg: rgba(0, 0, 0, 0.2);
@@ -96,14 +96,14 @@
 }
 
 .filament-login-page input {
-    background-color: var(--input-bg, rgba(255, 255, 255, 0.1));
+    background-color: var(--input-bg, rgba(233, 222, 222, 0.1));
     border: 1px solid var(--input-border, rgba(255, 255, 255, 0.2));
-    color: var(--input-text, white);
+    color: var(--input-text, black);
 }
 
 .filament-login-page input:focus {
     border-color: var(--input-focus-border, rgba(255, 255, 255, 0.5));
-    box-shadow: 0 0 0 2px var(--input-focus-shadow, rgba(255, 255, 255, 0.1));
+    box-shadow: 0 0 0 2px var(--input-focus-shadow, rgba(19, 18, 18, 0.1));
 }
 </style>
 </div>

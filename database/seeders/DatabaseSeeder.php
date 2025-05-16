@@ -17,20 +17,46 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $user1 = User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('password123'), 
-        ]);
-        $user2 = User::factory()->create([
-            'name' => 'Editar',
-            'email' => 'editar@gmail.com',
-            'password' => Hash::make('password123'), 
-        ]);
-        $role = Role::create(['name' => 'admin']);
-        $user1->assignRole($role);
+        // Crear roles si no existen
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $editorRole = Role::firstOrCreate(['name' => 'editar']);
+        $userRole = Role::firstOrCreate(['name' => 'usuario']);
 
-        $role = Role::create(['name' => 'editar']);
-        $user2->assignRole($role);
+        // Usuario Administrador
+        $user1 = User::firstOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
+                'name' => 'Admin',
+                'password' => Hash::make('password123'),
+            ]
+        );
+        $user1->assignRole($adminRole);
+
+        // Usuario Editor
+        $user2 = User::firstOrCreate(
+            ['email' => 'editar@gmail.com'],
+            [
+                'name' => 'Editar',
+                'password' => Hash::make('password123'),
+            ]
+        );
+        $user2->assignRole($editorRole);
+
+        // Usuario Normal
+        $user3 = User::firstOrCreate(
+            ['email' => 'usuario@gmail.com'],
+            [
+                'name' => 'Usuario',
+                'password' => Hash::make('password123'),
+            ]
+        );
+        $user3->assignRole($userRole);
+
+        // Crear usuarios adicionales con factory si no existen
+        if (User::count() < 8) {
+            User::factory(5)->create()->each(function ($user) use ($userRole) {
+                $user->assignRole($userRole);
+            });
+        }
     }
 }
